@@ -412,6 +412,7 @@
 "Assets/Scripts/DialogueTrigger.cs"
 "Assets/Scripts/ForcePushBook.cs"
 "Assets/Scripts/Goal.cs"
+"Assets/Scripts/MoveObjects.cs"
 "Assets/Scripts/MovingBook.cs"
 "Assets/Scripts/MusicPlayer.cs"
 "Assets/Scripts/Orb.cs"

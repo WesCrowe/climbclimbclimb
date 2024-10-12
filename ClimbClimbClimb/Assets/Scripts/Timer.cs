@@ -32,13 +32,6 @@ public class Timer : MonoBehaviour {
 
         string currentTime = string.Format("{0:00}:{1:00}", minutes, seconds);
         bestTimeText.text = currentTime;
-
-        /*aRank = GameObject.Find("Rank A");
-        aRank.SetActive(false);
-        bRank = GameObject.Find("Rank B");
-        bRank.SetActive(false);
-        cRank = GameObject.Find("Rank C");
-        cRank.SetActive(false);*/
     }
 
     void Update() {
@@ -59,17 +52,25 @@ public class Timer : MonoBehaviour {
             PlayerPrefs.SetFloat("besttime"+activeScene, time);
         }
 
+        string currentRank = "";
+        //check if the rank needs to be updated
         if (time < aTime){ //A rank time
-            PlayerPrefs.SetString("rank"+activeScene, "A");
+            currentRank += "A";
         }
         else if (time < bTime){ //B rank time
-            PlayerPrefs.SetString("rank"+activeScene, "B");
+            currentRank += "B";
         }
         else{ //C rank
-            PlayerPrefs.SetString("rank"+activeScene, "C");
+            currentRank += "C";
+        }
+        PlayerPrefs.SetString("rank"+activeScene, currentRank);
+
+        string bestrank = PlayerPrefs.GetString("bestrank"+activeScene, "D");
+        if (currentRank.CompareTo(bestrank) < 0){
+            PlayerPrefs.SetString("bestrank"+activeScene, currentRank);
         }
 
-        Debug.Log("Timer: rank="+PlayerPrefs.GetString("rank"+activeScene));
+        PlayerPrefs.Save();
 
     }
     private void ResetTimer() {
@@ -100,7 +101,7 @@ public class Timer : MonoBehaviour {
         if (PlayerPrefs.GetString("rank"+activeScene).CompareTo("A") == 0){
             aRank.SetActive(true);
         }
-        else if (PlayerPrefs.GetString("rank"+activeScene).CompareTo("b") == 0){
+        else if (PlayerPrefs.GetString("rank"+activeScene).CompareTo("B") == 0){
             bRank.SetActive(true);
         }
         else{

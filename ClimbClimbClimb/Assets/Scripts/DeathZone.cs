@@ -1,6 +1,11 @@
+/* Author: Wesley Crowe
+ * DeathZone.cs
+ * A script that respawns the player if they fall out of bounds
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeathZone : MonoBehaviour
 {
@@ -11,11 +16,7 @@ public class DeathZone : MonoBehaviour
         Debug.Log("Collision Detected");
 
         if (c.gameObject.tag == "Player"){
-            Debug.Log("Player Collided");
-            c.gameObject.transform.position = respawnPoint.position;
-
-            Debug.Log("Player Position: "+c.gameObject.transform.position);
-            Debug.Log("Respawn Point position: "+respawnPoint.position);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

@@ -29,7 +29,7 @@ public class Goal : MonoBehaviour
     void Update()
     {
         //spin the goal object
-        gameObject.transform.Rotate(0,0.5f,0);
+        gameObject.transform.Rotate(0,0.2f,0);
     }
 
     //When the player touches the goal, trigger victory event
@@ -41,7 +41,6 @@ public class Goal : MonoBehaviour
             timer.End();
 
             string rank = PlayerPrefs.GetString("rank"+SceneManager.GetActiveScene().name);
-            Debug.Log("rank="+rank);
             
             /*for (int i = 0; i < 3; i++){
                 Debug.Log("i="+i);

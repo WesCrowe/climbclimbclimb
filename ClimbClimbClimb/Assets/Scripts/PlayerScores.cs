@@ -36,6 +36,7 @@ public class PlayerScores : MonoBehaviour
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++){
             PlayerPrefs.SetFloat("besttime"+SceneManager.GetSceneByBuildIndex(i).name, 0);//5999);
             PlayerPrefs.SetString("rank"+SceneManager.GetSceneByBuildIndex(i).name, "-");
+            PlayerPrefs.SetString("bestrank"+SceneManager.GetSceneByBuildIndex(i).name, "D");
         }
 
         PlayerPrefs.Save();

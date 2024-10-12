@@ -22,9 +22,8 @@ public class Portal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //these rely on objects labeled don't destroy on load
+        //this relies on objects labeled don't destroy on load
         sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        //playerScores = GameObject.Find("PlayerScores").GetComponent<PlayerScores>();
 
         
         //assign variables
@@ -48,30 +47,21 @@ public class Portal : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R)){
-            GoToLevel();
-        }
-    }
-
+    //display the text for the input level
     public void levelTextUpdate(int index){
 
-        //display the text for the input level
         /*levelText.text = arrayOfNames[index] + "\n" +
                          "Best Rank: " + playerScores.getRank(index) + "\n" +
                          "Best Time: " + playerScores.getTime(index).ToString("mm':'ss'.'ms");
                          */
         
-        float levelTime = PlayerPrefs.GetFloat("besttime"+SceneManager.GetSceneByBuildIndex(index).name);
-
+        float levelTime = PlayerPrefs.GetFloat("besttime"+arrayOfNames[index]);
         float minutes = Mathf.FloorToInt(levelTime / 60);
         float seconds = Mathf.FloorToInt(levelTime % 60);
         float hundredths = Mathf.FloorToInt(levelTime-(int)levelTime) * 100;
-        //string time = string.Format("{0:00}:{1:00}", minutes, seconds);
+        
         levelText.text = arrayOfNames[index] + "\n" +
-                         "Best Rank: " + PlayerPrefs.GetString("rank"+SceneManager.GetSceneByBuildIndex(index).name) + "\n" +
+                         "Best Rank: " + PlayerPrefs.GetString("bestrank"+arrayOfNames[index]) + "\n" +
                          "Best Time: " + minutes.ToString("00") + ":" + seconds.ToString("00") + "." + hundredths.ToString("00");
     }
 
@@ -86,8 +76,6 @@ public class Portal : MonoBehaviour
 
     //function that invokes loadScene
     public void GoToLevel(){
-        Debug.Log("GoToLevel invoked");
-        Debug.Log("orb.sceneIndex = "+ orb.sceneIndex);
         sceneLoader.loadScene(orb.sceneIndex);
     }
 
