@@ -2931,6 +2931,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1149842002960469213, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
   m_PrefabInstance: {fileID: 857804438}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &387290642 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 492678710911449574, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
+  m_PrefabInstance: {fileID: 857804438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &391737381
 GameObject:
   m_ObjectHideFlags: 0
@@ -3604,7 +3609,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -6787,9 +6792,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 360415993154452342, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
+      propertyPath: src
+      value: 
+      objectReference: {fileID: 387290642}
+    - target: {fileID: 360415993154452342, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
       propertyPath: Camera
       value: 
       objectReference: {fileID: 418231409}
+    - target: {fileID: 360415993154452342, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
+      propertyPath: runSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 831751752c4f32044a0019a0bc39c8a1, type: 3}
+    - target: {fileID: 360415993154452342, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
+      propertyPath: hurtSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f0e085b32d16ddf46bc9e8ad69cbd154, type: 3}
+    - target: {fileID: 360415993154452342, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: cd70abd0e9f5f424486f1b39fdf9d11f, type: 3}
     - target: {fileID: 1149842002960469213, guid: 8f9399b13b5e9c94981c693853fcb97d, type: 3}
       propertyPath: m_Name
       value: Happy Idle

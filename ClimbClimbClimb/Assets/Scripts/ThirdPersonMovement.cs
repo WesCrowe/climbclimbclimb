@@ -8,11 +8,16 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
+   
+    public AudioSource src; //audiosource component of the player
+    public AudioClip jumpSound, runSound, hurtSound; //sound files
 
     public CharacterController controller;
-    public Transform Camera;
+    public Transform Camera; //main camera
     public Animator animator;
    
+    public float runSoundCoolDown; //time between steps
+
     private float verticalVelocity;
     public float speed = 22f;
     private float playerSpeedWFalling = 20;
@@ -24,32 +29,36 @@ public class ThirdPersonMovement : MonoBehaviour
     private Vector3 lastMoveDirection = Vector3.zero;
     private Vector3 impact = Vector3.zero;
   
-    public float fallSpeed = 90; //adjusting downward movement
-    public float jumpForce = 20f; //how powerful jumping is
-    public float rotationSpeed = 5f; //
-    public float wallJumpForce = 10f; //how powerful jumping off walls is
-    public float gravity = 9.81f; //how strong gravity is
-    public float turnSmoothTime = 0.1f; //smoothing on camera rotation
+    public float fallSpeed = 90; 
+    public float jumpForce = 20f;
+    public float rotationSpeed = 5f;
+    public float wallJumpForce = 10f;
+    public float gravity = 9.81f;
+    public float turnSmoothTime = 0.1f;
 
-    public float knockbackForce = 10f; //strength of getting hit by enemy obstacles
-    public float knockbackDuration = 5f; //how long knockback lasts
+    public float knockbackForce = 10f;
+    public float knockbackDuration = 5f;
 
+    private float jumpBufferTime = 0.1f;
+    private float jumpBufferCounter;
 
-
-    private bool isGrounded; //player is on the ground
+    private bool isGrounded;
     private bool isMoving;
     private bool isJumping;
     private bool isFalling;
     private bool isWallJumping;
-    private bool canWallJump; //player can wall jump or not
-    private bool isHit; //player was hit or not
+    private bool canWallJump;
+    private bool isHit; 
 
 
-    private float turnSmoothVelocity; //
-    private Vector3 velocity; //current velocity
-    private Vector3 lastWallNormal; //normal vector of the last wall touched
+    private float turnSmoothVelocity;
+    private Vector3 velocity;
+    private Vector3 lastWallNormal;
 
-    
+    public GameObject winMenuUI;
+    public Timer timer;
+
+
 
 
     private void Start()
@@ -67,22 +76,33 @@ public class ThirdPersonMovement : MonoBehaviour
         */
         isGrounded = controller.isGrounded;
 
+        //attempt to smooth jumping responsiveness
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+     
+        jumpBufferCounter -= Time.deltaTime;
+        
         if (controller.isGrounded) 
         {
-
-            //Debug.Log("Grounded: "+controller.isGrounded);
-
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isFalling", false);
             
             isFalling = false;
             
             verticalVelocity = -gravity * Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Space)) 
+           
+            if (jumpBufferCounter > 0) 
             {
                 animator.SetBool("isJumping", true);
+                animator.SetBool("isFalling", false);
                 animator.SetBool("isGrounded", false);
                 verticalVelocity = jumpForce;
+                
+                //play jumping sound
+                src.clip = jumpSound;
+                src.Play();
             }
 
             lastWallNormal = Vector3.zero;    
@@ -91,12 +111,12 @@ public class ThirdPersonMovement : MonoBehaviour
         { 
             verticalVelocity -= gravity * Time.deltaTime;
             moveDirection = lastMoveDirection;
+            isFalling = true;
             animator.SetBool("isJumping", false);
-            animator.SetBool("isFalling", true);
+            animator.SetBool("isFalling", isFalling);
             animator.SetBool("isMoving", false);
         }
        
-
         /*
             Horizontal movement based on camera
         */
@@ -105,7 +125,7 @@ public class ThirdPersonMovement : MonoBehaviour
         moveDirection.y = 0; 
         moveDirection.Normalize();
 
-        //for efficiency's sake, should check if these are zero or not before doing other things
+        //an efficient edit would be to check for zeroes before doing other calculations
         moveDirection.x = Input.GetAxis("Horizontal") * speed;
         moveDirection.z = Input.GetAxis("Vertical") * speed;
 
@@ -119,27 +139,35 @@ public class ThirdPersonMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
        
             animator.SetBool("isMoving", true);
-          
+
+            //play the running sound
+            if (runSoundCoolDown > .27 && !isJumping && !isFalling)
+            {
+                src.clip = runSound;
+                src.Play();
+                runSoundCoolDown = 0;
+            }
         }
         else 
         {
             animator.SetBool("isMoving", false);
         }
-        
+
         /*
             Vertical movement based on custom gravity
         */
         moveDirection.y = verticalVelocity * 4f;
         controller.Move(moveDirection * Time.deltaTime);
-       
+
+        //time track the running sound
+        runSoundCoolDown += Time.deltaTime;
     }
 
     /*
-        All Collisions handler
+        All collisions handler
     */
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        
         /*
             Wall Jumping
         */
@@ -147,15 +175,18 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if(hit.normal != lastWallNormal && canWallJump) 
-                { 
+                if(hit.normal != lastWallNormal && canWallJump)
+                {
                     Debug.DrawRay(hit.point, hit.normal, Color.white, 1.25f);
                     verticalVelocity = jumpForce * 1.5f;
                     moveDirection = hit.normal * 12;
-                    lastWallNormal = hit.normal;  
+                    lastWallNormal = hit.normal;
+                    src.clip = jumpSound;
+                    src.Play();
                 }
             }
         }
+       
         if (hit.gameObject.CompareTag("noWallJump"))
         {
             canWallJump = false;
@@ -167,11 +198,13 @@ public class ThirdPersonMovement : MonoBehaviour
         }
 
         /*
-            Getting hit
+            Getting hit by enemies
         */
         if (hit.gameObject.CompareTag("enemy"))
         {
             animator.SetBool("isHit", true);
+            src.clip = hurtSound;
+            src.Play();
             Vector3 enemyPos = hit.transform.position;
             OnHitByEnemy(enemyPos);           
             Debug.Log("HIT!");
@@ -200,5 +233,15 @@ public class ThirdPersonMovement : MonoBehaviour
         animator.SetBool("isHit", false);
     }
     
+    /*
+    void OnTriggerEnter(Collider collisionInfo)
+    {
+        if (collisionInfo.gameObject.CompareTag("Win"))
+        {
+            //Debug.Log("Hit.");
+            timer.End();
+        }
+    }
+    */
 }
 
