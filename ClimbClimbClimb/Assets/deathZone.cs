@@ -17,7 +17,7 @@ public class deathZone : MonoBehaviour
         
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("player fell");
+            //Debug.Log("player fell");
             controller.enabled = false;       
             player.transform.position = spawn.position;
             controller.enabled = true;  
