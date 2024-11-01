@@ -22,7 +22,10 @@ public class WinMenu : MonoBehaviour {
 
     // Connect next Level Scene to sceneName in Inspector
     public void NextLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        int cur = SceneManager.GetActiveScene().buildIndex;
+        //if (cur+1 < SceneManager.sceneCount)
+        SceneManager.LoadScene(cur+1);
+        Time.timeScale = 1f;
     }
 
     //Restart
@@ -34,6 +37,7 @@ public class WinMenu : MonoBehaviour {
     // Connect Hub Scene to sceneName in Inspector
     public void BackToHub() {
         SceneManager.LoadScene("HubHouse");
+        Time.timeScale = 1f;
     }
 
 }

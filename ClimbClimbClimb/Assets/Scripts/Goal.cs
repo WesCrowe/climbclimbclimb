@@ -52,7 +52,7 @@ public class Goal : MonoBehaviour
                 }
             }*/
 
-            Debug.Log("Victory!");
+            //Debug.Log("Victory!");
         }
     }
 }

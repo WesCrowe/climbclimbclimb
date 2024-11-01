@@ -13,7 +13,7 @@ public class SceneLoader : MonoBehaviour
     public MusicPlayer musicPlayer;
 
     public void Awake(){
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         Application.targetFrameRate = 60;
     }
 
@@ -26,22 +26,22 @@ public class SceneLoader : MonoBehaviour
 
     //loads the next scene in the build order
     public void loadNextScene(){
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+        //LockMouse();
+        ResetTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
     //loads the scene given a given index of the build order
     public void loadScene(int sceneIndex){
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+        //LockMouse();
+        ResetTime();
         SceneManager.LoadScene(sceneIndex);
     }
 
     //loads a tutorial scene specifically
     public void loadTutorial(){
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+        //LockMouse();
+        ResetTime();
         SceneManager.LoadScene("tutorial");
         //musicPlayer.SwapMusic(1);
     }
@@ -53,8 +53,8 @@ public class SceneLoader : MonoBehaviour
 
     //loads the main menu scene specifically
     public void backToMainMenu(){
-        UnityEngine.Cursor.lockState = CursorLockMode.None;
-        UnityEngine.Cursor.visible = true;
+        UnlockMouse();
+        ResetTime();
         SceneManager.LoadScene("title_screen");
     }
 
@@ -64,5 +64,19 @@ public class SceneLoader : MonoBehaviour
 
     public void toCredits(){
         SceneManager.LoadScene("Credits");
+    }
+
+    private void LockMouse(){
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+    }
+
+    private void UnlockMouse(){
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+    }
+
+    private void ResetTime(){
+        Time.timeScale = 1f;
     }
 }

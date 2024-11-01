@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour {
         Time.timeScale = 0f;
         currentlyPaused = true;
 
-        Debug.Log("Game is Paused");
+        //Debug.Log("Game is Paused");
         
     }
 
@@ -28,7 +28,7 @@ public class PauseMenu : MonoBehaviour {
         Time.timeScale = 1f;
         currentlyPaused = false;
 
-        Debug.Log("Game is Unpaused");
+        //Debug.Log("Game is Unpaused");
     }
 
     // Restart
@@ -40,5 +40,6 @@ public class PauseMenu : MonoBehaviour {
     // Remember to write the actual scene later
     public void GoToHub() {
         SceneManager.LoadScene("HubHouse");
+        Time.timeScale = 1f;
     }
 }

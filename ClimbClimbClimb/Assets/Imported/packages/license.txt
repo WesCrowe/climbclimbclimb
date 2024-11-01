@@ -1,0 +1,11 @@
+Model Information:
+* title:	Arbre à chat (Cat Tree)
+* source:	https://sketchfab.com/3d-models/arbre-a-chat-cat-tree-077da236acb6412ea6f36885b1c8036e
+* author:	Alexandre_Gomes (https://sketchfab.com/Alexandre_Gomes)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Arbre à chat (Cat Tree)" (https://sketchfab.com/3d-models/arbre-a-chat-cat-tree-077da236acb6412ea6f36885b1c8036e) by Alexandre_Gomes (https://sketchfab.com/Alexandre_Gomes) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gray Cat Toy
+* source:	https://sketchfab.com/3d-models/gray-cat-toy-4e6f5cf5700e4ab28d46d71d1d793b3b
+* author:	CsabiTube (https://sketchfab.com/CsabiTube)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gray Cat Toy" (https://sketchfab.com/3d-models/gray-cat-toy-4e6f5cf5700e4ab28d46d71d1d793b3b) by CsabiTube (https://sketchfab.com/CsabiTube) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -15,9 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial.unity
     guid: e8d08221333dd9743a8e03bd9fad20d6
   - enabled: 1
-    path: Assets/Scenes/Mountain.unity
-    guid: df8aed5b5c6334b4ca0f0d441087d932
-  - enabled: 1
     path: Assets/Scenes/Library.unity
     guid: 9b3dd7560cdd245f5bf3baabfa583263
+  - enabled: 1
+    path: Assets/Scenes/Cat Tree.unity
+    guid: 6e51c080836b5fa4b828f4654a7c3087
   m_configObjects: {}
